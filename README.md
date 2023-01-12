@@ -25,4 +25,4 @@ This project is part of a bundle of three sideprojects focused on using transfor
 
 - [arXiv summarizer](https://github.com/VerleysenNiels/arxiv-summarizer/edit/master/README.md) (this repository)
 - [Image captioning]() (coming soon)
-- [Ancient map segmentation]() (coming soon)
+- [Historical map segmentation]() (coming soon)
