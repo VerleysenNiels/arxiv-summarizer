@@ -4,8 +4,12 @@ This script will be running on CUDA with PyTorch as deep learning framework.
 """
 
 import logging
-import numpy as np
+logging.basicConfig(encoding="utf-8", level=logging.INFO)
+
 import nltk
+
+# Import pytorch in order to use gpu
+import torch
 
 # To download and manage the dataset from HuggingFace
 from datasets import load_dataset
@@ -20,18 +24,25 @@ from transformers import Seq2SeqTrainingArguments, Seq2SeqTrainer, DataCollatorF
 import evaluate
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":    
+    # Can we use gpu?
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    logging.info(f"Running on {device}")
     
+    logging.info("Loading dataset...")
     # Load the dataset
-    arxiv_dataset = load_dataset("ccdv/arxiv-summarization")
+    arxiv_dataset = load_dataset("ccdv/arxiv-summarization", cache_dir="D:/AAA_Projecten/arxiv-summarizer/training/cache")
     # We need to select the text and summary columns as the dataset can be used for other things as well
     text_column = "article"
     summary_column = "abstract" 
     
+    logging.info("Loading model and tokenizer...")
     # We can automatically load in the tokenizer and model that we want to use
-    distilbart_tokenizer = BartTokenizer.from_pretrained("sshleifer/distilbart-cnn-6-6")
-    distilbart_model = BartForConditionalGeneration.from_pretrained("sshleifer/distilbart-cnn-6-6")
+    distilbart_tokenizer = BartTokenizer.from_pretrained("sshleifer/distilbart-cnn-6-6", cache_dir="D:/AAA_Projecten/arxiv-summarizer/training/cache")
+    distilbart_model = BartForConditionalGeneration.from_pretrained("sshleifer/distilbart-cnn-6-6", cache_dir="D:/AAA_Projecten/arxiv-summarizer/training/cache")
+    distilbart_model.to(device)
     
+    logging.info("Preparing dataset...")
     # We can then tokenize our dataset
     def tokenize_function(samples):
         articles = distilbart_tokenizer(samples[text_column], truncation=True)
@@ -45,16 +56,17 @@ if __name__ == "__main__":
     # Initialize a collator for automatic padding of inputs and targets
     data_collator = DataCollatorForSeq2Seq(distilbart_tokenizer, model=distilbart_model)    
     
+    logging.info("Preparing trainer...")
     # Next up let's define our training arguments
     training_arguments = Seq2SeqTrainingArguments(
         output_dir="distilbart-6-6-arxiv",  # Where to store results
         overwrite_output_dir=True,          # Overwrite the content of the output directory
         evaluation_strategy="epoch",        # Evaluate the model every epoch
+        save_strategy="epoch",              # Saving strategy should be the same as the evaluation strategy
         num_train_epochs=3,                 # The number of training epochs
-        per_device_train_batch_size=8,      # Batch size for training
+        per_device_train_batch_size=16,      # Batch size for training
         per_device_eval_batch_size=16,      # Batch size for evaluation
         learning_rate=1e-5,                 # Set the learning rate for finetuning
-        save_steps=800,                     # Number of update steps between two model saves
         load_best_model_at_end=True         # When training is done, load the best performing checkpoint       
     )
     
@@ -90,6 +102,7 @@ if __name__ == "__main__":
     )
     
     # And we can run our trainer
+    logging.info("Started training...")
     trainer.train()
     
     
