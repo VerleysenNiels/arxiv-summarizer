@@ -13,12 +13,12 @@ It is therefore advised to start from a pretrained model on the same task (ideal
 To find your model you go to the models tab, select the task for which you want a model. Maybe add some more tags, like the language you are working in or the deep learning framework you want to use. Once you have found a model, you can use their transformers library in python to easily load in the model. This final part is what these example projects are for.
 
 ## Environment
-I have added the conda environment yaml to the repository. The most important two libraries are of course [Transformers](https://pypi.org/project/transformers/) and [PyTorch](https://pytorch.org/) with CUDA. I am running everything locally in python, but you can always copy the code to a notebook and run it for instance in [Google Colab](https://colab.research.google.com/) if you don't have access to a GPU. 
+I have added the conda environment yaml to the repository, as well as a Dockerfile if you want to containerize this model. The most important two libraries are of course [Transformers](https://pypi.org/project/transformers/) and [PyTorch](https://pytorch.org/) with CUDA. I am running everything locally or on a GPU server in python, but you can always copy the code to a notebook and run it for instance in [Google Colab](https://colab.research.google.com/) if you don't have access to a GPU. 
 
 ## Dataset and model
 For this specific repository I am using the [arxiv-summarization](https://huggingface.co/datasets/ccdv/arxiv-summarization) dataset that I found on the HuggingFace platform.
 
-For the model I was looking for something that is not too big and settled with a [DistilBart-6-6 model](https://huggingface.co/sshleifer/distilbart-cnn-6-6) which was pretrained on the CNN news summarization dataset.
+For the model I settled with a [DistilBart-6-6 model](https://huggingface.co/sshleifer/distilbart-cnn-6-6) which was pretrained on the CNN news summarization dataset.
 
 ## Other examples
 This project is part of a bundle of three sideprojects focused on using transformers from HuggingFace in practice.
