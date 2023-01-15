@@ -1,6 +1,8 @@
 # arXiv summarizer
 As an example of how to apply transformers in practice I wanted to make a few examples showcasing different tasks. This task being the summarization of a research paper, which is quite easy to do as there is a nice dataset available, as well as plenty of pretrained text summarization models.
 
+Why would you want an arXiv summarizer? Indeed, research papers already come with an abstract so it would be kind of ridiculous to use this model instead. You can however also use this the other way around. When writing technical documents it is always interesting to have an executive summary for people without the time to go through the whole document. With this model you could quickly generate a first draft of such a summary, which you can then improve further. There is also another, less obvious, use for this kind of model: you can use it to check if your document is conveying your inteded message. When you are writing a technical document, you can let this kind of model generate a summary to see if your message is clear in the text you have written. If not, you might need to make some changes.
+
 ## What are transformers?
 Not sure what transformers are or how they work? No worries I've got you covered with [this repository.](https://github.com/VerleysenNiels/transformers-pytorch)
 Definitely also read the recommended papers to get a better understanding.
@@ -24,5 +26,5 @@ For the model I settled with a [DistilBart-6-6 model](https://huggingface.co/ssh
 This project is part of a bundle of three sideprojects focused on using transformers from HuggingFace in practice.
 
 - [arXiv summarizer](https://github.com/VerleysenNiels/arxiv-summarizer/edit/master/README.md) (this repository)
-- [Image captioning]() (coming soon)
+- [Image captioning](https://github.com/VerleysenNiels/image-captioning)
 - [Historical map segmentation]() (coming soon)
