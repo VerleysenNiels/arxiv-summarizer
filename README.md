@@ -25,6 +25,6 @@ For the model I settled with a [DistilBart-6-6 model](https://huggingface.co/ssh
 ## Other examples
 This project is part of a bundle of three sideprojects focused on using transformers from HuggingFace in practice.
 
-- [arXiv summarizer](https://github.com/VerleysenNiels/arxiv-summarizer/edit/master/README.md) (this repository)
+- [arXiv summarizer](https://github.com/VerleysenNiels/arxiv-summarizer) (this repository)
 - [Image captioning](https://github.com/VerleysenNiels/image-captioning)
 - [Historical map segmentation]() (coming soon)
