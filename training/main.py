@@ -65,7 +65,8 @@ if __name__ == "__main__":
         save_strategy="epoch",              # Saving strategy should be the same as the evaluation strategy
         num_train_epochs=3,                 # The number of training epochs
         per_device_train_batch_size=8,      # Batch size for training
-        per_device_eval_batch_size=2,       # Batch size for evaluation
+        per_device_eval_batch_size=8,       # Batch size for evaluation
+        eval_accumulation_steps=8,          # Reduce the amount of GPU memory used during evaluation
         learning_rate=1e-5,                 # Set the learning rate for finetuning
         load_best_model_at_end=True,        # When training is done, load the best performing checkpoint
         report_to='tensorboard'             # Always nice to be able to follow the training progress remotely :)       
