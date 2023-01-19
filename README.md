@@ -20,7 +20,15 @@ I have added the conda environment yaml to the repository, as well as a Dockerfi
 ## Dataset and model
 For this specific repository I am using the [arxiv-summarization](https://huggingface.co/datasets/ccdv/arxiv-summarization) dataset that I found on the HuggingFace platform.
 
-For the model I settled with a [DistilBart-6-6 model](https://huggingface.co/sshleifer/distilbart-cnn-6-6) which was pretrained on the CNN news summarization dataset.
+## Bonus: Reddit TLDR model
+I started this project with the idea to use a DistilBart model, however I forgot that these models don't really accept very long input sequences like for instance scientific publications. I didn't want to just throw everything away, so I finetuned this model on the reddit summarization dataset instead.
+
+The reddit dataset can be found [here.](https://huggingface.co/datasets/reddit) The selected model is a [DistilBart-6-6 model](https://huggingface.co/sshleifer/distilbart-cnn-6-6) which was pretrained on the CNN news summarization dataset.
+
+## Reusing trained models
+I will publish the finetuned models on HuggingFace, so they can easily be reused.
+
+Links will be added later..
 
 ## Other examples
 This project is part of a bundle of three sideprojects focused on using transformers from HuggingFace in practice.
