@@ -36,7 +36,7 @@ if __name__ == "__main__":
     logging.info("Loading dataset...")
     # Load the dataset
     reddit_dataset = load_dataset("reddit", cache_dir="cache")
-    
+
     # We need to select the text and summary columns as the dataset can be used for other things as well
     text_column = "content"
     summary_column = "summary"
@@ -57,38 +57,34 @@ if __name__ == "__main__":
         return reddit_posts
 
     tokenized_reddit_dataset = reddit_dataset.map(tokenize_function, batched=True)
-    
+
     # Split the dataset as there is no split in yet
-    # Train - Val & Test
-    reddit_dataset = tokenized_reddit_dataset.train_test_split(test_size=0.3)
+    reddit_dataset = tokenized_reddit_dataset['train'].train_test_split(test_size=0.01)
     train_reddit_dataset = reddit_dataset['train']
-    # Val - Test
-    reddit_dataset = reddit_dataset['test'].train_test_split(test_size=0.5)
-    val_reddit_dataset = reddit_dataset['train']
-    test_reddit_dataset = reddit_dataset['test']
+    val_reddit_dataset = reddit_dataset['test']
 
     # Initialize a collator for automatic padding of inputs and targets
     data_collator = DataCollatorForSeq2Seq(distilbart_tokenizer, model=distilbart_model)
-    
+
     logging.info("Preparing trainer...")
     # Next up let's define our training arguments
     training_arguments = Seq2SeqTrainingArguments(
         output_dir="distilbart-cnn-6-6-reddit",     # Where to store results
         overwrite_output_dir=True,                  # Overwrite the content of the output directory
         evaluation_strategy="epoch",                # Evaluate the model every epoch
-        eval_accumulation_steps=8,                  # Reduce memory usage during validation (keep low to not overflow RAM)
+        eval_accumulation_steps=1,                  # Reduce memory usage during validation (keep low to not overflow RAM)
         save_strategy="epoch",                      # Saving strategy should be the same as the evaluation strategy
         num_train_epochs=3,                         # The number of training epochs
-        per_device_train_batch_size=32,             # Batch size for training
-        per_device_eval_batch_size=32,              # Batch size for evaluation
-        learning_rate=1e-5,                         # Set the learning rate for finetuning
+        per_device_train_batch_size=8,              # Batch size for training
+        per_device_eval_batch_size=8,               # Batch size for evaluation
+        learning_rate=1e-4,                         # Set the learning rate for finetuning
         predict_with_generate=True,                 # Important for evaluation
         load_best_model_at_end=True,                # When training is done, load the best performing checkpoint
         report_to='tensorboard',                    # Always nice for following up on the training process
         push_to_hub=True                            # Push the results to the hub
     )
 
-    # And of course the evaluation metric, as the pretrained distilbart was evaluated with the rouge metric
+    # And of course the evaluation metric
     metric = evaluate.load("rouge")
 
     def compute_metrics(eval_pred):
@@ -115,7 +111,6 @@ if __name__ == "__main__":
         training_arguments,
         train_dataset=train_reddit_dataset,
         eval_dataset=val_reddit_dataset,
-        test_dataset=test_reddit_dataset,
         data_collator=data_collator,
         tokenizer=distilbart_tokenizer,
         compute_metrics=compute_metrics
