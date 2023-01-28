@@ -3,8 +3,8 @@ from transformers import BartTokenizer, BartForConditionalGeneration
 
 if __name__ == "__main__":
     # Load finetuned model and tokenizer
-    tokenizer = BartTokenizer.from_pretrained("NielsV/distilbart-cnn-6-6-reddit", cache_dir="cache")
-    model = BartForConditionalGeneration.from_pretrained("NielsV/distilbart-cnn-6-6-reddit", cache_dir="cache")
+    tokenizer = BartTokenizer.from_pretrained("NielsV/distilbart-cnn-6-6-reddit")
+    model = BartForConditionalGeneration.from_pretrained("NielsV/distilbart-cnn-6-6-reddit")
 
     # Function to write a TLDR
     def generate_tldr(input_txt):
@@ -15,7 +15,11 @@ if __name__ == "__main__":
     demo = gr.Interface(
         fn=generate_tldr, 
         inputs=gr.Textbox(lines=5, placeholder="...", label="Post to summarize..."), 
-        outputs=gr.Textbox(lines=2, label="Too long, didn't read:")
+        outputs=gr.Textbox(lines=2, label="Too long, didn't read:"),
+        title="A tldr-bot trained on reddit posts.",
+        description="For more details check the following repository: https://github.com/VerleysenNiels/arxiv-summarizer"
         )
 
     demo.launch()
+    
+    
