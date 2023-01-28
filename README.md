@@ -32,7 +32,7 @@ Training the reddit model was unfortunately stopped due to a power outage... :sc
 > Vanilla was the first luxury flavor to be produced synthetically.
 > Edit: spelling
 
-Which is actually quite the decent answer. A funny thing is that there is actually an artifact from the training data in the generated response, the model also added "Edit: spelling"  at the end (which is quite common on reddit).
+Which is actually quite the decent answer. A funny thing is that there is an artifact from the training data in the generated response, the model added "Edit: spelling"  at the end (which is quite common on reddit).
 
 ![A gif visualizing the above example in the demonstrator](https://github.com/VerleysenNiels/arxiv-summarizer/blob/master/demo/reddit_demo.gif?raw=true)
 
