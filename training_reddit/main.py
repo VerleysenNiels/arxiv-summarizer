@@ -73,13 +73,14 @@ if __name__ == "__main__":
         overwrite_output_dir=True,                  # Overwrite the content of the output directory
         evaluation_strategy="epoch",                # Evaluate the model every epoch
         eval_accumulation_steps=1,                  # Reduce memory usage during validation (keep low to not overflow RAM)
-        save_strategy="epoch",                      # Saving strategy should be the same as the evaluation strategy
         num_train_epochs=3,                         # The number of training epochs
         per_device_train_batch_size=8,              # Batch size for training
         per_device_eval_batch_size=8,               # Batch size for evaluation
         learning_rate=1e-4,                         # Set the learning rate for finetuning
         predict_with_generate=True,                 # Important for evaluation
-        load_best_model_at_end=True,                # When training is done, load the best performing checkpoint
+        save_total_limit = 1,                       # Minimize storage usage
+        save_strategy="steps",                      # Save best model every 10k update steps
+        save_steps=10000,                           # Save best model every 10k update steps
         report_to='tensorboard',                    # Always nice for following up on the training process
         push_to_hub=True                            # Push the results to the hub
     )
