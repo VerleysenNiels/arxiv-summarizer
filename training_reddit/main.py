@@ -119,7 +119,7 @@ if __name__ == "__main__":
 
     # And we can run our trainer
     logging.info("Started training...")
-    result = trainer.train()
+    result = trainer.train(resume_from_checkpoint = True)
     logging.info("Done")
     logging.info(f"Time: {result.metrics['train_runtime']:.2f}")
     logging.info(f"Samples/second: {result.metrics['train_samples_per_second']:.2f}")
