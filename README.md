@@ -27,7 +27,7 @@ The reddit dataset can be found [here.](https://huggingface.co/datasets/reddit) 
 
 ![Training loss over time](https://github.com/VerleysenNiels/arxiv-summarizer/blob/master/training_reddit/training_loss.png?raw=true)
 
-Training the reddit model was unfortunately stopped due to a power outage... :scream: meaning that only the first epoch was completed. The training has been restarted and let's hope this time it can continue unhindered. You can see the training loss over time in the graph above. :point_up: In the meantime I went ahead and created a [small gradio demo](https://huggingface.co/spaces/NielsV/Reddit-TLDR-bot) to showcase this model. After only three days of training, this model already performs quite well. In the following example I took the top answer on reddit to [the question on how vanilla became the generic ice cream flavor](https://www.reddit.com/r/AskHistorians/comments/ijt3rd/how_did_vanilla_become_the_generic_flavor_of_ice/). The finetuned model summarizes the answer to:
+Training the reddit model was unfortunately stopped due to a power outage... :scream: meaning that only the first epoch was completed. I then restarted the training which continued unhindered. You can see the training loss over time in the graph above. :point_up: In the meantime I went ahead and created a [small gradio demo](https://huggingface.co/spaces/NielsV/Reddit-TLDR-bot) to showcase this model. After only three days of training, this model already performs quite well. In the following example I took the top answer on reddit to [the question on how vanilla became the generic ice cream flavor](https://www.reddit.com/r/AskHistorians/comments/ijt3rd/how_did_vanilla_become_the_generic_flavor_of_ice/). The finetuned model summarizes the answer to:
 
 > Vanilla was the first luxury flavor to be produced synthetically.
 > Edit: spelling
@@ -35,6 +35,8 @@ Training the reddit model was unfortunately stopped due to a power outage... :sc
 Which is actually quite the decent answer. A funny thing is that there is an artifact from the training data in the generated response, the model added "Edit: spelling"  at the end (which is quite common on reddit).
 
 ![A gif visualizing the above example in the demonstrator](https://github.com/VerleysenNiels/arxiv-summarizer/blob/master/demo/reddit_demo.gif?raw=true)
+
+Update: The model has finished training for three epochs. The model should perform better now, because of the two extra epochs. When observing the performance gain on the evaluation dataset, it is clear that in the current setup doing more epochs is not worth it anymore. The change between epochs two and three is already quite small. You can see the training and evaluation details on [HuggingFace](https://huggingface.co/NielsV/distilbart-cnn-6-6-reddit).
 
 ## Reusing trained models
 I will publish the finetuned models on HuggingFace, so they can easily be reused.
