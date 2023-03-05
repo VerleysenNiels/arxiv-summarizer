@@ -29,7 +29,7 @@ from transformers import Seq2SeqTrainingArguments, Seq2SeqTrainer
 import evaluate
 
 # Let's first put some limits on the sequence lengths
-MAX_INPUT_SEQUENCE_LENGTH = 10000   # Average is around 6k tokens
+MAX_INPUT_SEQUENCE_LENGTH = 10240   # Average is around 6k tokens
 MAX_OUTPUT_SEQUENCE_LENGTH = 600    # Average is around 300 tokens
 
 # We need the batch size in a number of places
