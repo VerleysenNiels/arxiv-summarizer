@@ -111,7 +111,7 @@ if __name__ == "__main__":
     logging.info("Preparing trainer...")
     # Next up let's define our training arguments
     training_arguments = Seq2SeqTrainingArguments(
-        output_dir="distilbart-6-6-reddit",     # Where to store results
+        output_dir="led-arxiv-10000",           # Where to store results
         overwrite_output_dir=True,              # Overwrite the content of the output directory
         evaluation_strategy="steps",            # Evaluate the model every epoch
         eval_steps=10000,                       # Evaluate the model every 10k update steps
