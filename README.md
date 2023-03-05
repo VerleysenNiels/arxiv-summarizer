@@ -24,6 +24,22 @@ That's all good and well, you might say, but what about references to ealier or 
 
 I'll be using the [led-base-16384](https://huggingface.co/allenai/led-base-16384) as starting point. This implementation can handle input sequences of up to 16k tokens, which should be enough for summarizing scientific papers.
 
+## Training and results
+As the inputs and outputs are rather large, training of the model was evidently going to take some time. For this reason I only trained the model on the arXiv dataset for a single epoch. This already took about 4 days on the GPU-server. I also reduced the number of allowed input tokens from 16384 to 10240 which should be enough for scientific papers. The training loss of this single epoch can be seen below.
+
+![image](https://user-images.githubusercontent.com/26146888/222953350-e33f6b83-8e53-4385-a5c3-1d538cb5419b.png)
+
+To test the model I first let it summarize the longformer paper for me. I excluded the abstract, as that would otherwise be a bit of cheating :wink:
+Below are both the actual and the generated abstract from this paper. You can see which is which, but the generated abstract is not bad at all.
+
+Generated:
+> Long document transformers have achieved a state-of-the-art performance on a wide range of tasks, including classification, question answering ,and discriminative language understanding. We present a modified model that scales linearly with the sequence length, making it versatile for processing long documents on current long document transformer architectures. In particular, we show that our model outperforms the full self-attention operation of existing pretrained Transformers, and that it can be used to build contextual representations of the entire context using multiple layers of attention, reducing the need for task-specific architectures to address such interactions.
+
+Real abstract:
+> Transformer-based models are unable to process long sequences due to their self-attention operation, which scales quadratically with the sequence length. To address this limitation, we introduce the Longformer with an attention mechanism that scales linearly with sequence length, making it easy to process documents of thousands of tokens or longer. Longformer’s attention mechanism is a drop-in replacement for the standard self-attention and combines a local windowed attention with a task motivated global attention. Following prior work on long-sequence transformers, we evaluate Longformer on character-level language modeling and achieve state-of-the-art results on text8 and enwik8. In contrast to most prior work, we also pretrain Longformer and finetune it on a variety of downstream tasks. Our pretrained Longformer consistently outperforms RoBERTa on long document tasks and sets new state-of-the-art results on WikiHop and TriviaQA. We finally introduce the Longformer-Encoder-Decoder (LED), a Longformer variant for supporting long document generative sequence-to-sequence tasks, and demonstrate its effectiveness on the arXiv summarization dataset.
+
+There is also a demo available .. TODO
+
 ## Bonus: Reddit TLDR model
 I started this project with the idea to use a DistilBart model, however I forgot that these models don't really accept very long input sequences like for instance scientific publications. I didn't want to just throw everything away, so I finetuned this model on the reddit summarization dataset instead.
 
@@ -45,9 +61,9 @@ Update: The model has finished training for three epochs. The model should perfo
 ## Reusing trained models
 I will publish the finetuned models on HuggingFace, so they can easily be reused.
 
-[Reddit TLDR model](https://huggingface.co/NielsV/distilbart-cnn-6-6-reddit)
+[arXiv summarization model](https://huggingface.co/NielsV/led-arxiv-10240)
 
-I will add the arXiv model here when it is ready..
+[Reddit TLDR model](https://huggingface.co/NielsV/distilbart-cnn-6-6-reddit)
 
 ## Other examples
 This project is part of a bundle of three sideprojects focused on using transformers from HuggingFace in practice.
