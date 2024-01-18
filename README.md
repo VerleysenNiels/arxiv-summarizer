@@ -68,8 +68,5 @@ I will publish the finetuned models on HuggingFace, so they can easily be reused
 [Reddit TLDR model](https://huggingface.co/NielsV/distilbart-cnn-6-6-reddit)
 
 ## Other examples
-This project is part of a bundle of three sideprojects focused on using transformers from HuggingFace in practice.
-
 - [arXiv summarizer](https://github.com/VerleysenNiels/arxiv-summarizer) (this repository)
 - [Image captioning](https://github.com/VerleysenNiels/image-captioning)
-- [Historical map segmentation]() (coming soon)
